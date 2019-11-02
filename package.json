@@ -6,8 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "export": "next export",
+    "predeploy": "yarn build && yarn export",
+    "deploy": "touch out/.nojekyll && gh-pages -t -d out"
   },
   "dependencies": {
     "lodash": "^4.17.15",
@@ -23,5 +24,5 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0"
   },
-  "homepage": "http://priyanshbalyan.github.io/maze-runner"
+  "homepage": "https://priyanshbalyan.github.io/maze-runner/"
 }
