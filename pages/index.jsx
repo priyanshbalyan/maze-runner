@@ -7,27 +7,28 @@ import Dijkstra from '../algorithms/dijkstra';
 import BFS from '../algorithms/BFS';
 import DFS from '../algorithms/DFS';
 
-const [ROWS, COLS] = [20, 30];
-const [START_ROW, START_COL] = [10, 5];
-const [FINISH_ROW, FINISH_COL] = [10, 28];
+const [ROWS, COLS] = [30, 40];
+const [START_ROW, START_COL] = [15, 3];
+const [FINISH_ROW, FINISH_COL] = [27, 34];
 
-const getNode = (row, col) => ({
+const getNode = (row, col, wall = false) => ({
   row,
   col,
   isStart: row === START_ROW && col === START_COL,
   isFinish: row === FINISH_ROW && col === FINISH_COL,
   isVisited: false,
-  isWall: false,
+  isWall: wall,
   distance: Infinity,
   previousNode: null,
 });
 
-const getGrid = () => {
+const getGrid = (walls = null) => {
   const grid = [];
   _.each(new Array(ROWS), (_row, rowIndex) => {
     const currentRow = [];
     _.each(new Array(COLS), (_col, colIndex) => {
-      currentRow.push(getNode(rowIndex, colIndex));
+      // eslint-disable-next-line max-len
+      currentRow.push(getNode(rowIndex, colIndex, walls ? walls[rowIndex][colIndex].isWall : false));
     });
     grid.push(currentRow);
   });
@@ -54,8 +55,8 @@ const Home = () => {
   }, []);
 
   const handleMouseDown = (row, col) => {
-    setNodes(toggleWall(nodes, row, col));
     setMousePressed(true);
+    setNodes(toggleWall(nodes, row, col));
   };
 
   const handleMouseEnter = (row, col) => {
@@ -70,7 +71,9 @@ const Home = () => {
   const reset = (resetWall = false) => {
     if (resetWall) {
       setNodes(getGrid());
+      return;
     }
+    setNodes(getGrid(nodes));
     _.each(_.flatten(nodes), (node) => {
       nodes.isVisited = false;
       const element = document.getElementById(`node-${node.row}-${node.col}`);
@@ -163,7 +166,6 @@ const Home = () => {
         </button>
         <div
           className="board"
-          draggable="false"
           onMouseLeave={() => setMousePressed(false)}
         >
           {_.map(nodes, (row, rowIdx) => (
@@ -184,6 +186,12 @@ const Home = () => {
 
       <style jsx>
         {`
+      div{
+        line-height: 0;
+      }
+      body{
+        background-color: black;
+      }
       .board {
         margin: 0;
         padding: 12px 0 0;

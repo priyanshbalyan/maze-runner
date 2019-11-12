@@ -96,6 +96,7 @@ const Node = (props) => {
             100% {
               transform: scale(1);
               background-color: rgb(255, 254, 106);
+              outline: none;
             }
           }
           
