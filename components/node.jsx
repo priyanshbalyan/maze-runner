@@ -1,18 +1,39 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 
 const Node = (props) => {
   const {
-    node, onMouseDown, onMouseEnter, onMouseUp,
+    node,
+    onMouseDown,
+    onMouseEnter,
+    onMouseUp,
+    draggable,
+    setEndNodes,
   } = props;
+
+  const [, dragRef] = useDrag({
+    item: { type: 'NODE', isStart: node.isStart },
+    collect: () => {},
+  });
+
   const extraClassName = node.isFinish
     ? 'finish' : node.isStart
       ? 'start' : node.isWall
         ? 'wall' : node.isVisited
           ? 'visited' : '';
 
+  const [, dropRef] = useDrop({
+    accept: ['NODE', 'START', 'FINISH'],
+    drop: (item) => {
+      setEndNodes(node.row, node.col, item.isStart);
+    },
+  });
+
   return (
     <div
+      ref={draggable ? dragRef : dropRef}
+      draggable={draggable}
       className={`node ${extraClassName}`}
       id={`node-${node.row}-${node.col}`}
       onMouseDown={() => onMouseDown(node.row, node.col)}
@@ -28,7 +49,6 @@ const Node = (props) => {
             width: 25px;
             height: 25px;
             outline: 1px solid rgb(175, 216, 248);
-            transition: all 0.5s linear;
           }
           .wall {
             background-color: black;
