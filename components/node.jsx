@@ -49,6 +49,7 @@ const Node = (props) => {
             width: 25px;
             height: 25px;
             outline: 1px solid rgb(175, 216, 248);
+            transition: all 0.5s linear;
           }
           .wall {
             background-color: black;
