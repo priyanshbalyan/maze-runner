@@ -359,7 +359,7 @@ module.exports = function (it) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.6.10' };
+var core = module.exports = { version: '2.6.11' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -2397,9 +2397,7 @@ function tryApplyUpdates() {
 }
 
 function _tryApplyUpdates() {
-  _tryApplyUpdates = (0, _asyncToGenerator2["default"])(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee() {
+  _tryApplyUpdates = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
     var res, _data, curPage, pageUpdated;
 
     return _regeneratorRuntime.wrap(function _callee$(_context) {

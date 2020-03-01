@@ -1061,7 +1061,7 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.6.10' };
+var core = module.exports = { version: '2.6.11' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -3470,9 +3470,7 @@ exports["default"] = function () {
     }
   }
 
-  return (
-    /*#__PURE__*/
-    function (_react_1$Component) {
+  return (/*#__PURE__*/function (_react_1$Component) {
       _inherits(_class, _react_1$Component);
 
       _createClass(_class, null, [{
@@ -3571,9 +3569,7 @@ var statusCodes = {
 * `Error` component used for handling errors.
 */
 
-var Error =
-/*#__PURE__*/
-function (_react$default$Compon) {
+var Error = /*#__PURE__*/function (_react$default$Compon) {
   _inherits(Error, _react$default$Compon);
 
   function Error() {
@@ -3660,23 +3656,23 @@ var styles = {
 
 /***/ "./node_modules/react/index.js":
 /*!*******************************************************************************************!*\
-  !*** delegated ./node_modules/react/index.js from dll-reference dll_13346faca0e924a89b24 ***!
+  !*** delegated ./node_modules/react/index.js from dll-reference dll_b35e09dc2ca94ac6d9c1 ***!
   \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(/*! dll-reference dll_13346faca0e924a89b24 */ "dll-reference dll_13346faca0e924a89b24"))("./node_modules/react/index.js");
+module.exports = (__webpack_require__(/*! dll-reference dll_b35e09dc2ca94ac6d9c1 */ "dll-reference dll_b35e09dc2ca94ac6d9c1"))("./node_modules/react/index.js");
 
 /***/ }),
 
-/***/ "dll-reference dll_13346faca0e924a89b24":
+/***/ "dll-reference dll_b35e09dc2ca94ac6d9c1":
 /*!*******************************************!*\
-  !*** external "dll_13346faca0e924a89b24" ***!
+  !*** external "dll_b35e09dc2ca94ac6d9c1" ***!
   \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = dll_13346faca0e924a89b24;
+module.exports = dll_b35e09dc2ca94ac6d9c1;
 
 /***/ })
 
