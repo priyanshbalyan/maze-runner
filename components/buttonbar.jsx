@@ -1,64 +1,95 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 
 const ButtonBar = (props) => {
   const { visualizeAlgorithm, reset, generateMaze } = props;
   return (
-    <div style={{display: '-webkit-inline-box'}}>
-      <div style={{marginInlineEnd:'10px'}}>
-      <Button variant="contained" color="primary"
+    <div>
+      <button
         onClick={() => visualizeAlgorithm(0)}
         type="button"
       >
         Visualise Dijkstra
-      </Button>
-      </div>
-      <div style={{marginInlineEnd:'10px'}}>
-      <Button variant="contained" color="primary"
+      </button>
+      <button
         onClick={() => visualizeAlgorithm(1)}
         type="button"
       >
         Visualise BFS
-      </Button>
-      </div>
-      <div style={{marginInlineEnd:'10px'}}>
-      <Button variant="contained" color="primary"
+      </button>
+      <button
         onClick={() => visualizeAlgorithm(2)}
         type="button"
       >
         Visualise DFS
-      </Button>
-      </div>
+      </button>
       {/* <button
         onClick={() => visualizeAlgorithm(3)}
         type="button"
       >
         Visualise A*
       </button> */}
-      <div style={{marginInlineEnd:'10px'}}>
-      <Button variant="contained" color="secondary" 
+      <button
+        className='red'
         onClick={() => reset(false)}
         type="button"
       >
         Reset
-      </Button>
-      </div>
-      <div style={{marginInlineEnd:'10px'}}>
-      <Button variant="contained" color="secondary"
+      </button>
+      <button
+        className='red'
         onClick={() => reset(true)}
         type="button"
       >
         Reset Walls
-      </Button>
-      </div>
-      <div style={{marginInlineEnd:'10px'}}> 
-      <Button variant="contained" 
+      </button>
+      <button
+        className='green'
         onClick={() => generateMaze()}
         type="button"
       >
         Generate Maze
-      </Button>
-      </div>
+      </button>
+      <style jsx>
+        {`
+          button {
+            padding:10px;
+            border-radius:2px;
+            border:2px solid #222;
+            background-color:transparent;
+            color:#222;
+            font-size:14px;
+            cursor:pointer;
+            margin:0 10px;
+            transition:.1s;
+          }
+
+          button:hover {
+            background-color:#222;
+            color:#eee;
+          }
+
+          button.red {
+            border-color:#a33;
+            color:#a33;
+          }
+
+          button.red:hover {
+            background-color:#a33;
+            color:#fff;
+          }
+
+          button.green {
+            border-color:#3a3;
+            color:#3a3;
+          }
+
+          button.green:hover {
+            background-color:#3a3;
+            color:#fff;
+          }
+
+          `}
+      </style>
     </div>
   );
 };
