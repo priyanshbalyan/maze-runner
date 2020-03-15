@@ -53,20 +53,14 @@ const ButtonBar = (props) => {
         {`
           button {
             padding:10px;
+            border-radius:2px;
             border:2px solid #222;
             background-color:transparent;
             color:#222;
             font-size:14px;
             cursor:pointer;
+            margin:0 10px;
             transition:.1s;
-          }
-          button:first-child {
-            border-bottom-left-radius:2px;
-            border-top-left-radius:2px;
-          }
-          button:last-child {
-            border-bottom-right-radius:2px;
-            border-top-right-radius:2px;
           }
 
           button:hover {
