@@ -11,6 +11,7 @@
     "deploy": "touch out/.nojekyll && gh-pages -t -d out"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
     "lodash": "^4.17.15",
     "next": "9.1.1",
     "react": "16.10.2",
