@@ -22,12 +22,12 @@ const ButtonBar = (props) => {
       >
         Visualise DFS
       </button>
-      {/* <button
+      <button
         onClick={() => visualizeAlgorithm(3)}
         type="button"
       >
         Visualise A*
-      </button> */}
+      </button>
       <button
         className='red'
         onClick={() => reset(false)}
