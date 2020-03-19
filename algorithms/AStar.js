@@ -16,19 +16,24 @@ function updateNeighbors(currentNode, endNode, neighbors) {
 }
 
 function Astar(grid, startNode, endNode) {
-  const openList = [];
-  const closeList = [];
-  const visitedNodes = [];
+  const openList = []; // store nodes to visit
+  const closeList = []; // 
+  const visitedNodes = []; // store visited nodes
   console.log('trigger');
-  startNode.f = 0;
-  startNode.g = 0;
-  startNode.h = 0;
-  endNode.f = 0;
-  endNode.g = 0;
-  endNode.h = 0;
+  startNode.f = startNode.g = startNode.h = 0;
+  endNode.f = endNode.g = endNode.h = 0;
   openList.push(startNode);
+
   while (openList.length) {
-    const currentNode = openList.shift();
+    let currentNode = openList[0];
+    let curr_idx = 0;
+    for (let i = 0; i < openList.length; i += 1) {
+      if (openList[i].f < currentNode.f) {
+        currentNode = openList[i];
+        curr_idx = i;
+      }
+    }
+    openList.splice(curr_idx, 1);
     closeList.push(currentNode);
     visitedNodes.push(currentNode);
     if (currentNode === endNode) return visitedNodes;
