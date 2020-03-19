@@ -11,15 +11,10 @@ function getNeighbors(currentNode, grid) {
   return _.filter(array, (node) => !node.isVisited && !node.isWall);
 }
 
-function updateNeighbors(currentNode, endNode, neighbors) {
-
-}
-
 function Astar(grid, startNode, endNode) {
-  const openList = []; // store nodes to visit
-  const closeList = []; // 
-  const visitedNodes = []; // store visited nodes
-  console.log('trigger');
+  const openList = [];
+  const closeList = [];
+  const visitedNodes = [];
   startNode.f = startNode.g = startNode.h = 0;
   endNode.f = endNode.g = endNode.h = 0;
   openList.push(startNode);
