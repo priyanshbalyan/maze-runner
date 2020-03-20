@@ -27,13 +27,10 @@ function getNeighbors(currentNode, grid) {
   });
 }
 
-function updateNeighbors(currentNode, endNode, neighbors) {}
-
 function Astar(grid, startNode, endNode) {
   var openList = [];
   var closeList = [];
   var visitedNodes = [];
-  console.log('trigger');
   startNode.f = 0;
   startNode.g = 0;
   startNode.h = 0;
@@ -43,7 +40,17 @@ function Astar(grid, startNode, endNode) {
   openList.push(startNode);
 
   var _loop = function _loop() {
-    var currentNode = openList.shift();
+    var currentNode = openList[0];
+    var currentIndex = 0;
+
+    for (var i = 0; i < openList.length; i += 1) {
+      if (openList[i].f < currentNode.f) {
+        currentNode = openList[i];
+        currentIndex = i;
+      }
+    }
+
+    openList.splice(currentIndex, 1);
     closeList.push(currentNode);
     visitedNodes.push(currentNode);
     if (currentNode === endNode) return {
@@ -52,21 +59,18 @@ function Astar(grid, startNode, endNode) {
     var neighbors = getNeighbors(currentNode, grid);
 
     lodash__WEBPACK_IMPORTED_MODULE_0__["each"](neighbors, function (neighbor) {
-      for (var i = 0; i < neighbors.length; i += 1) {
-        var _neighbor = neighbors[i];
-        if (lodash__WEBPACK_IMPORTED_MODULE_0__["find"](closeList, _neighbor)) return;
-        _neighbor.g = currentNode.g + 1;
-        _neighbor.h = Math.abs(endNode.row - _neighbor.row) + Math.abs(endNode.col - _neighbor.col);
-        _neighbor.f = _neighbor.g + _neighbor.h;
-        _neighbor.previousNode = currentNode;
+      if (lodash__WEBPACK_IMPORTED_MODULE_0__["find"](closeList, neighbor)) return;
+      neighbor.g = currentNode.g + 1;
+      neighbor.h = Math.abs(endNode.row - neighbor.row) + Math.abs(endNode.col - neighbor.col);
+      neighbor.f = neighbor.g + neighbor.h;
+      neighbor.previousNode = currentNode;
 
-        if (lodash__WEBPACK_IMPORTED_MODULE_0__["find"](openList, _neighbor)) {
-          if (_neighbor.g > lodash__WEBPACK_IMPORTED_MODULE_0__["find"](openList, _neighbor).g) return;
-        }
-
-        openList.push(_neighbor);
-        _neighbor.isVisited = true;
+      if (lodash__WEBPACK_IMPORTED_MODULE_0__["find"](openList, neighbor)) {
+        if (neighbor.g > lodash__WEBPACK_IMPORTED_MODULE_0__["find"](openList, neighbor).g) return;
       }
+
+      openList.push(neighbor);
+      neighbor.isVisited = true;
     });
   };
 
@@ -605,10 +609,13 @@ var Board = function Board() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-jsx/style */ "./node_modules/styled-jsx/style.js");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 var _jsxFileName = "/Users/priyanshbalyan/Documents/maze-runner/components/buttonbar.jsx";
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 
 var ButtonBar = function ButtonBar(props) {
@@ -616,6 +623,7 @@ var ButtonBar = function ButtonBar(props) {
       reset = props.reset,
       generateMaze = props.generateMaze;
   return __jsx("div", {
+    className: "jsx-1717074215",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 6
@@ -626,6 +634,7 @@ var ButtonBar = function ButtonBar(props) {
       return visualizeAlgorithm(0);
     },
     type: "button",
+    className: "jsx-1717074215",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 7
@@ -636,6 +645,7 @@ var ButtonBar = function ButtonBar(props) {
       return visualizeAlgorithm(1);
     },
     type: "button",
+    className: "jsx-1717074215",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 13
@@ -646,6 +656,7 @@ var ButtonBar = function ButtonBar(props) {
       return visualizeAlgorithm(2);
     },
     type: "button",
+    className: "jsx-1717074215",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 19
@@ -653,9 +664,21 @@ var ButtonBar = function ButtonBar(props) {
     __self: this
   }, "Visualise DFS"), __jsx("button", {
     onClick: function onClick() {
+      return visualizeAlgorithm(3);
+    },
+    type: "button",
+    className: "jsx-1717074215",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 25
+    },
+    __self: this
+  }, "Visualise A*"), __jsx("button", {
+    onClick: function onClick() {
       return reset(false);
     },
     type: "button",
+    className: "jsx-1717074215" + " " + 'red',
     __source: {
       fileName: _jsxFileName,
       lineNumber: 31
@@ -666,9 +689,10 @@ var ButtonBar = function ButtonBar(props) {
       return reset(true);
     },
     type: "button",
+    className: "jsx-1717074215" + " " + 'red',
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 37
+      lineNumber: 38
     },
     __self: this
   }, "Reset Walls"), __jsx("button", {
@@ -676,12 +700,16 @@ var ButtonBar = function ButtonBar(props) {
       return generateMaze();
     },
     type: "button",
+    className: "jsx-1717074215" + " " + 'green',
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 43
+      lineNumber: 45
     },
     __self: this
-  }, "Generate Maze"));
+  }, "Generate Maze"), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    id: "1717074215",
+    __self: this
+  }, "button.jsx-1717074215{padding:10px;border-radius:2px;border:2px solid #222;background-color:transparent;color:#222;font-size:14px;cursor:pointer;margin:0 10px;-webkit-transition:.1s;transition:.1s;}button.jsx-1717074215:hover{background-color:#222;color:#eee;}button.red.jsx-1717074215{border-color:#a33;color:#a33;}button.red.jsx-1717074215:hover{background-color:#a33;color:#fff;}button.green.jsx-1717074215{border-color:#3a3;color:#3a3;}button.green.jsx-1717074215:hover{background-color:#3a3;color:#fff;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9wcml5YW5zaGJhbHlhbi9Eb2N1bWVudHMvbWF6ZS1ydW5uZXIvY29tcG9uZW50cy9idXR0b25iYXIuanN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQW9EUyxBQUd5QixBQVlTLEFBS0osQUFLSSxBQUtKLEFBS0ksYUEvQkosS0FpQlAsQUFVQSxJQWZBLEFBVUEsQUFVQSxPQWRaLEFBVUEsRUEzQnVCLEVBWXZCLEFBVUEsQUFVQSxvQkEvQjhCLDZCQUNsQixXQUNJLGVBQ0EsZUFDRCxjQUNDLHNDQUNoQiIsImZpbGUiOiIvVXNlcnMvcHJpeWFuc2hiYWx5YW4vRG9jdW1lbnRzL21hemUtcnVubmVyL2NvbXBvbmVudHMvYnV0dG9uYmFyLmpzeCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCc7XG5cbmNvbnN0IEJ1dHRvbkJhciA9IChwcm9wcykgPT4ge1xuICBjb25zdCB7IHZpc3VhbGl6ZUFsZ29yaXRobSwgcmVzZXQsIGdlbmVyYXRlTWF6ZSB9ID0gcHJvcHM7XG4gIHJldHVybiAoXG4gICAgPGRpdj5cbiAgICAgIDxidXR0b25cbiAgICAgICAgb25DbGljaz17KCkgPT4gdmlzdWFsaXplQWxnb3JpdGhtKDApfVxuICAgICAgICB0eXBlPVwiYnV0dG9uXCJcbiAgICAgID5cbiAgICAgICAgVmlzdWFsaXNlIERpamtzdHJhXG4gICAgICA8L2J1dHRvbj5cbiAgICAgIDxidXR0b25cbiAgICAgICAgb25DbGljaz17KCkgPT4gdmlzdWFsaXplQWxnb3JpdGhtKDEpfVxuICAgICAgICB0eXBlPVwiYnV0dG9uXCJcbiAgICAgID5cbiAgICAgICAgVmlzdWFsaXNlIEJGU1xuICAgICAgPC9idXR0b24+XG4gICAgICA8YnV0dG9uXG4gICAgICAgIG9uQ2xpY2s9eygpID0+IHZpc3VhbGl6ZUFsZ29yaXRobSgyKX1cbiAgICAgICAgdHlwZT1cImJ1dHRvblwiXG4gICAgICA+XG4gICAgICAgIFZpc3VhbGlzZSBERlNcbiAgICAgIDwvYnV0dG9uPlxuICAgICAgPGJ1dHRvblxuICAgICAgICBvbkNsaWNrPXsoKSA9PiB2aXN1YWxpemVBbGdvcml0aG0oMyl9XG4gICAgICAgIHR5cGU9XCJidXR0b25cIlxuICAgICAgPlxuICAgICAgICBWaXN1YWxpc2UgQSpcbiAgICAgIDwvYnV0dG9uPlxuICAgICAgPGJ1dHRvblxuICAgICAgICBjbGFzc05hbWU9J3JlZCdcbiAgICAgICAgb25DbGljaz17KCkgPT4gcmVzZXQoZmFsc2UpfVxuICAgICAgICB0eXBlPVwiYnV0dG9uXCJcbiAgICAgID5cbiAgICAgICAgUmVzZXRcbiAgICAgIDwvYnV0dG9uPlxuICAgICAgPGJ1dHRvblxuICAgICAgICBjbGFzc05hbWU9J3JlZCdcbiAgICAgICAgb25DbGljaz17KCkgPT4gcmVzZXQodHJ1ZSl9XG4gICAgICAgIHR5cGU9XCJidXR0b25cIlxuICAgICAgPlxuICAgICAgICBSZXNldCBXYWxsc1xuICAgICAgPC9idXR0b24+XG4gICAgICA8YnV0dG9uXG4gICAgICAgIGNsYXNzTmFtZT0nZ3JlZW4nXG4gICAgICAgIG9uQ2xpY2s9eygpID0+IGdlbmVyYXRlTWF6ZSgpfVxuICAgICAgICB0eXBlPVwiYnV0dG9uXCJcbiAgICAgID5cbiAgICAgICAgR2VuZXJhdGUgTWF6ZVxuICAgICAgPC9idXR0b24+XG4gICAgICA8c3R5bGUganN4PlxuICAgICAgICB7YFxuICAgICAgICAgIGJ1dHRvbiB7XG4gICAgICAgICAgICBwYWRkaW5nOjEwcHg7XG4gICAgICAgICAgICBib3JkZXItcmFkaXVzOjJweDtcbiAgICAgICAgICAgIGJvcmRlcjoycHggc29saWQgIzIyMjtcbiAgICAgICAgICAgIGJhY2tncm91bmQtY29sb3I6dHJhbnNwYXJlbnQ7XG4gICAgICAgICAgICBjb2xvcjojMjIyO1xuICAgICAgICAgICAgZm9udC1zaXplOjE0cHg7XG4gICAgICAgICAgICBjdXJzb3I6cG9pbnRlcjtcbiAgICAgICAgICAgIG1hcmdpbjowIDEwcHg7XG4gICAgICAgICAgICB0cmFuc2l0aW9uOi4xcztcbiAgICAgICAgICB9XG5cbiAgICAgICAgICBidXR0b246aG92ZXIge1xuICAgICAgICAgICAgYmFja2dyb3VuZC1jb2xvcjojMjIyO1xuICAgICAgICAgICAgY29sb3I6I2VlZTtcbiAgICAgICAgICB9XG5cbiAgICAgICAgICBidXR0b24ucmVkIHtcbiAgICAgICAgICAgIGJvcmRlci1jb2xvcjojYTMzO1xuICAgICAgICAgICAgY29sb3I6I2EzMztcbiAgICAgICAgICB9XG5cbiAgICAgICAgICBidXR0b24ucmVkOmhvdmVyIHtcbiAgICAgICAgICAgIGJhY2tncm91bmQtY29sb3I6I2EzMztcbiAgICAgICAgICAgIGNvbG9yOiNmZmY7XG4gICAgICAgICAgfVxuXG4gICAgICAgICAgYnV0dG9uLmdyZWVuIHtcbiAgICAgICAgICAgIGJvcmRlci1jb2xvcjojM2EzO1xuICAgICAgICAgICAgY29sb3I6IzNhMztcbiAgICAgICAgICB9XG5cbiAgICAgICAgICBidXR0b24uZ3JlZW46aG92ZXIge1xuICAgICAgICAgICAgYmFja2dyb3VuZC1jb2xvcjojM2EzO1xuICAgICAgICAgICAgY29sb3I6I2ZmZjtcbiAgICAgICAgICB9XG5cbiAgICAgICAgICBgfVxuICAgICAgPC9zdHlsZT5cbiAgICA8L2Rpdj5cbiAgKTtcbn07XG5cbmV4cG9ydCBkZWZhdWx0IEJ1dHRvbkJhcjtcbiJdfQ== */\n/*@ sourceURL=/Users/priyanshbalyan/Documents/maze-runner/components/buttonbar.jsx */"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ButtonBar);
