@@ -15,20 +15,24 @@ function Astar(grid, startNode, endNode) {
   const openList = [];
   const closeList = [];
   const visitedNodes = [];
-  startNode.f = startNode.g = startNode.h = 0;
-  endNode.f = endNode.g = endNode.h = 0;
+  startNode.f = 0;
+  startNode.g = 0;
+  startNode.h = 0;
+  endNode.f = 0;
+  endNode.g = 0;
+  endNode.h = 0;
   openList.push(startNode);
 
   while (openList.length) {
     let currentNode = openList[0];
-    let curr_idx = 0;
+    let currentIndex = 0;
     for (let i = 0; i < openList.length; i += 1) {
       if (openList[i].f < currentNode.f) {
         currentNode = openList[i];
-        curr_idx = i;
+        currentIndex = i;
       }
     }
-    openList.splice(curr_idx, 1);
+    openList.splice(currentIndex, 1);
     closeList.push(currentNode);
     visitedNodes.push(currentNode);
     if (currentNode === endNode) return visitedNodes;
@@ -36,21 +40,18 @@ function Astar(grid, startNode, endNode) {
     const neighbors = getNeighbors(currentNode, grid);
 
     _.each(neighbors, (neighbor) => {
-      for (let i = 0; i < neighbors.length; i += 1) {
-        const neighbor = neighbors[i];
-        if (_.find(closeList, neighbor)) return;
+      if (_.find(closeList, neighbor)) return;
 
-        neighbor.g = currentNode.g + 1;
-        neighbor.h = Math.abs(endNode.row - neighbor.row) + Math.abs(endNode.col - neighbor.col);
-        neighbor.f = neighbor.g + neighbor.h;
-        neighbor.previousNode = currentNode;
+      neighbor.g = currentNode.g + 1;
+      neighbor.h = Math.abs(endNode.row - neighbor.row) + Math.abs(endNode.col - neighbor.col);
+      neighbor.f = neighbor.g + neighbor.h;
+      neighbor.previousNode = currentNode;
 
-        if (_.find(openList, neighbor)) {
-          if (neighbor.g > _.find(openList, neighbor).g) return;
-        }
-        openList.push(neighbor);
-        neighbor.isVisited = true;
+      if (_.find(openList, neighbor)) {
+        if (neighbor.g > _.find(openList, neighbor).g) return;
       }
+      openList.push(neighbor);
+      neighbor.isVisited = true;
     });
   }
 
